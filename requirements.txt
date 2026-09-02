@@ -1,0 +1,7 @@
+# Runtime dependencies for talking to real hardware.
+#
+# Everything that does not touch a link -- watchdog, rates, mode decoding,
+# telemetry dataclasses, simulator -- works and is unit-tested without these.
+# mavbridge._mav raises a clear, actionable error if you open a link without them.
+pymavlink>=2.4.37
+pyserial>=3.5

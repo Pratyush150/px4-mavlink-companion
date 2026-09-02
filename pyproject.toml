@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mavbridge"
+version = "0.1.0"
+description = "MAVLink bridge, link watchdog and offboard control between a flight controller and a companion computer"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Pratyush Vatsa" }]
+keywords = ["mavlink", "px4", "ardupilot", "drone", "uav", "companion-computer", "telemetry"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = []
+
+[project.optional-dependencies]
+# Only needed to open a real link. See mavbridge/_mav.py.
+hardware = ["pymavlink>=2.4.37", "pyserial>=3.5"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+mavdiag = "mavbridge.diagnose:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
