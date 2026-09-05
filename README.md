@@ -22,6 +22,19 @@ dataclasses, the fault-injecting simulator -- runs and is unit-tested with
 
 ---
 
+## Screenshots
+
+![Terminal link diagnosis report showing link status, per-stream rates, vehicle state, bandwidth budget and ranked root causes](docs/screenshots/link-diagnosis.png)
+`python3 tools/mavdiag.py --sim px4 --fault stale-attitude --duration 20 --radio sik57600`: a 20-second sample of the built-in PX4 simulator with a stale-ATTITUDE fault injected. Per-stream measured and requested rates, the bandwidth budget for a SiK 57600 radio, and the two most likely causes ranked with the evidence for each.
+
+![Terminal output of the link watchdog moving from healthy to stale streams to link down](docs/screenshots/watchdog-link-drop.png)
+`python3 examples/link_health_monitor.py --sim --inject link-drop --seconds 13`: the watchdog on a simulated link that is cut at t=8s. Individual streams go stale before the heartbeat times out, so the per-stream warnings arrive about a second ahead of the link-down event.
+
+![Terminal output of normalised telemetry printed once a second with a bandwidth warning](docs/screenshots/telemetry-stream.png)
+`python3 examples/stream_telemetry.py --sim --seconds 10 --radio sik57600`: message intervals requested, then attitude, altitude, ground speed, GPS fix and battery decoded into one line per second, with an up-front warning that the requested rates are being checked against a half-duplex radio.
+
+---
+
 ## Quickstart
 
 ```python
